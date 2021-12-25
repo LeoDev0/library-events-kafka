@@ -24,9 +24,10 @@ public class LibraryEventController {
     @PostMapping("/v1/libraryevent")
     public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException, ExecutionException, InterruptedException {
         log.info("before sendLibraryEvent");
-//        libraryEventProducer.sendLibraryEvent(libraryEvent);
-        SendResult<Integer, String> sendResult = libraryEventProducer.sendLibraryEventSynchronous(libraryEvent);
-        log.info("SendResult is {}", sendResult.toString());
+//        libraryEventProducer.sendLibraryEventAsynchronous_Approach1(libraryEvent);
+//        SendResult<Integer, String> sendResult = libraryEventProducer.sendLibraryEventSynchronous(libraryEvent);
+        libraryEventProducer.sendLibraryEventAsynchronous_Approach2(libraryEvent);
+//        log.info("SendResult is {}", sendResult.toString());
         log.info("after sendLibraryEvent");
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
     }
